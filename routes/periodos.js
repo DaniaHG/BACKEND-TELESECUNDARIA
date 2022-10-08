@@ -6,7 +6,7 @@ const mysqlConnection = require('../configurations/db-conf');
 /*Get-PERIODOS*/
 router.get('/periodos',(req,res)=>{
     console.log('get lista periodos')
-    mysqlConnection.query('SELECT * FROM periodos;',(err,rows,fields)=>{
+    mysqlConnection.query('SELECT m.id, m.descripcion FROM periodos;',(err,rows,fields)=>{
         if(!err){
             res.send(rows);
         }else{
@@ -18,7 +18,7 @@ router.get('/periodos',(req,res)=>{
 /*Get-id-periodos*/
 router.get('/periodos/:id',(req,res)=>{
     console.log('get periodos')
-    mysqlConnection.query('Select * from periodos where id = ?;',[req.params.id],(err,rows,fields)=>{
+    mysqlConnection.query('Select m.id, m.descripcion from periodos where id = ?;',[req.params.id],(err,rows,fields)=>{
         if(!err){
             res.send(rows);
         }else{

@@ -6,7 +6,7 @@ const mysqlConnection = require('../configurations/db-conf');
 /*Get-Docentes*/
 router.get('/docentes',(req,res)=>{
     console.log('get lista docentes')
-    mysqlConnection.query('Select * from docentes',(err,rows,fields)=>{
+    mysqlConnection.query('Select m.id, m.DPI, m.nombre, m.fecha_nacimiento, m.fecha_ingreso, m.direccion, m.telefono, m.correo from docentes',(err,rows,fields)=>{
         if(!err){
             res.send(rows);
         }else{
@@ -18,7 +18,7 @@ router.get('/docentes',(req,res)=>{
 /*Get-id-Persona*/
 router.get('/docentes/:id',(req,res)=>{
     console.log('get docente')
-    mysqlConnection.query('Select * from docentes where id = ?',[req.params.id],(err,rows,fields)=>{
+    mysqlConnection.query('Select m.id, m.DPI, m.nombre, m.fecha_nacimiento, m.fecha_ingreso, m.direccion, m.telefono, m.correo from docentes where id = ?',[req.params.id],(err,rows,fields)=>{
         if(!err){
             res.send(rows);
         }else{
