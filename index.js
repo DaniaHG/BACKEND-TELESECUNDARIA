@@ -7,11 +7,12 @@ app.use(cors());
 
 app.set('port', process.env.PORT || 3000);
 
-app.use(require('./routes/personas'));
 app.use(require('./routes/docentes'));
 app.use(require('./routes/materias'));
 app.use(require('./routes/periodos'));
 app.use(require('./routes/alumnos'));
+app.use(require('./routes/materia_docente'));
+
 app.use(require('./routes/security'));
 
 app.listen(app.get('port'), () => {

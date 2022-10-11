@@ -6,7 +6,7 @@ const mysqlConnection = require('../configurations/db-conf');
 /*Get-materias*/
 router.get('/materias',(req,res)=>{
     console.log('get lista materias')
-    mysqlConnection.query('select m.id, m.nombre, m.docentes_id, d.nombre as docente from dte0g8247tlcbkvs.materias m join dte0g8247tlcbkvs.docentes d on d.id = m.docentes_id;',(err,rows,fields)=>{
+    mysqlConnection.query('select id, nombre from materias;',(err,rows,fields)=>{
         if(!err){
             res.send(rows);
         }else{
@@ -18,7 +18,7 @@ router.get('/materias',(req,res)=>{
 /*Get-id-materias*/
 router.get('/materias/:id',(req,res)=>{
     console.log('get materias')
-    mysqlConnection.query('select m.id, m.nombre, m.docentes_id, d.nombre as docente from dte0g8247tlcbkvs.materias m join dte0g8247tlcbkvs.docentes d on d.id = m.docentes_id where m.id = ?;',[req.params.id],(err,rows,fields)=>{
+    mysqlConnection.query('select id, nombre from materias where id = ?;',[req.params.id],(err,rows,fields)=>{
         if(!err){
             res.send(rows);
         }else{
@@ -32,8 +32,8 @@ router.post('/materias',(req,res)=>{
     console.log('Insert materias')
     let emp=req.body;
     console.log(emp);
-    mysqlConnection.query('insert into materias (nombre, docentes_id) values (?,?)',
-    [emp.nombre,emp.docentes_id],(err,result)=>{
+    mysqlConnection.query('insert into materias (nombre) values (?)',
+    [emp.nombre],(err,result)=>{
         if(!err){
             console.log(result);
             res.status(201).send('created Successfully');
@@ -48,8 +48,8 @@ router.post('/materias',(req,res)=>{
 router.put('/materias/:id',(req,res)=>{
     console.log('Update materias')
     let emp=req.body;
-    mysqlConnection.query('update materias set nombre=?, docentes_id=? where id=?',
-    [emp.nombre,emp.docentes_id,req.params.id],(err,result)=>{
+    mysqlConnection.query('update materias set nombre=? where id=?',
+    [emp.nombre,req.params.id],(err,result)=>{
         if(!err){
             console.log(result);
             res.status(202).send('Updated Successfully');
