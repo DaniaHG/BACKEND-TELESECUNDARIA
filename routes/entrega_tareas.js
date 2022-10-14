@@ -6,7 +6,7 @@ const mysqlConnection = require('../configurations/db-conf');
 /*Get-ENTREGA TAREAS*/
 router.get('/entrega_tareas',(req,res)=>{
     console.log('get lista ENTREGA TAREAS')
-    mysqlConnection.query('select entrega_tareas.id, entrega_tareas.status, alumnos_id, tareas_id from entrega_tareas, alumnos, tareas where entrega_tareas.alumnos_id = alumnos.id and entrega_tareas.tareas_id = tareas.id ORDER BY entrega_tareas.id;',(err,rows,fields)=>{
+    mysqlConnection.query('select e.id, e.status, e.alumnos_id, a.nombre as alumno, e.tareas_id, t.nombre as tarea, m.nombre as materia, p.descripcion as periodo from dte0g8247tlcbkvs.entrega_tareas e  join dte0g8247tlcbkvs.alumnos a on a.id = e.alumnos_id join dte0g8247tlcbkvs.tareas t on t.id = e.tareas_id join dte0g8247tlcbkvs.materias m on m.id = t.materias_id join dte0g8247tlcbkvs.periodos p on p.id = t.periodos_id;',(err,rows,fields)=>{
         if(!err){
             res.send(rows);
         }else{
@@ -18,7 +18,7 @@ router.get('/entrega_tareas',(req,res)=>{
 /*Get-id-ENTREGA TAREAS*/
 router.get('/entrega_tareas/:id',(req,res)=>{
     console.log('get ENTREGA TAREAS')
-    mysqlConnection.query('select entrega_tareas.id, entrega_tareas.status, alumnos_id, tareas_id from entrega_tareas, alumnos, tareas where entrega_tareas.alumnos_id = alumnos.id and entrega_tareas.tareas_id = tareas.id and entrega_tareas.id =?;',[req.params.id],(err,rows,fields)=>{
+    mysqlConnection.query('select e.id, e.status, e.alumnos_id, a.nombre as alumno, e.tareas_id, t.nombre as tarea, m.nombre as materia, p.descripcion as periodo from dte0g8247tlcbkvs.entrega_tareas e  join dte0g8247tlcbkvs.alumnos a on a.id = e.alumnos_id join dte0g8247tlcbkvs.tareas t on t.id = e.tareas_id join dte0g8247tlcbkvs.materias m on m.id = t.materias_id join dte0g8247tlcbkvs.periodos p on p.id = t.periodos_id where e.id = ?;',[req.params.id],(err,rows,fields)=>{
         if(!err){
             res.send(rows);
         }else{
