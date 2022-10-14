@@ -3,19 +3,30 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const mysqlConnection = require('../configurations/db-conf');
 
+/*
 
-router.post("/login", (req, res) => {
+router.get('/usuarios', (req,res)=>{
+    mysqlConnection.query('select * from usuarios', (err,rows,fields) => {
+      if(!err){
+        res.json(rows);
+      }else{
+        console.log(err);
+      }
+    })
+  });*/
+
+router.post("/usuarios", (req, res) => {
     const body = req.body;
     console.log(body.userName);
     let user;           
 
-    mysqlConnection.query("Select * from usuario where userName = ?", body.userName, (err, rows, field) => {
+    mysqlConnection.query("Select * from usuarios where userName = ?", body.userName, (err, rows, field) => {
         if (!err) {
             user = rows[0];
             if (user === undefined) {
                 return res.status(401).send('user does not exist');
             }
-            if (body.password === user.password) {
+            if (body.pass === user.pass) {
                 const token = jwt.sign({_id: user.id}, 'secret', { expiresIn: '5m' });
                 return res.status(200).json({ token });
             } else {

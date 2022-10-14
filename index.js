@@ -1,7 +1,10 @@
 const express = require('express');
 const cors = require('cors');
+const { application } = require('express');
 const app = express();
 app.use(express.json());
+
+
 
 app.use(cors());
 
@@ -12,6 +15,8 @@ app.use(require('./routes/docentes'));
 app.use(require('./routes/materias'));
 
 app.use(require('./routes/security'));
+
+app.use(require('./routes/user'));
 
 app.listen(app.get('port'), () => {
     console.log(`Server en puerto ${app.get('port')}`);
