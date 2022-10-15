@@ -33,7 +33,7 @@ router.post('/entrega_tareas',(req,res)=>{
     let emp=req.body;
     console.log(emp);
     mysqlConnection.query('INSERT INTO entrega_tareas (status, alumnos_id, tareas_id) VALUES (?, ?, ?);',
-    [emp.nombre],(err,result)=>{
+    [emp.status,emp.alumnos_id,emp.tareas_id],(err,result)=>{
         if(!err){
             console.log(result);
             res.status(201).send('created Successfully');
@@ -48,8 +48,8 @@ router.post('/entrega_tareas',(req,res)=>{
 router.put('/entrega_tareas/:id',(req,res)=>{
     console.log('Update ENTREGA TAREAS')
     let emp=req.body;
-    mysqlConnection.query('UPDATE entrega_tareas SET status = ?, alumnos_id = ?,tareas_id = ? WHERE (id = ?);',
-    [emp.nombre,req.params.id],(err,result)=>{
+    mysqlConnection.query('UPDATE entrega_tareas SET status = ?, alumnos_id = ?, tareas_id = ? WHERE id = ?;',
+    [emp.status,emp.alumnos_id,emp.tareas_id,req.params.id],(err,result)=>{
         if(!err){
             console.log(result);
             res.status(202).send('Updated Successfully');
