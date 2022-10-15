@@ -12,6 +12,7 @@ app.use(require('./routes/materias'));
 app.use(require('./routes/periodos'));
 app.use(require('./routes/alumnos'));
 app.use(require('./routes/materia_docente'));
+app.use(require('./routes/entrega_tareas'));
 app.use(require('./routes/materia_alumno'));
 app.use(require('./routes/usuarios'));
 
