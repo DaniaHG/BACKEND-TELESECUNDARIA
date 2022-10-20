@@ -32,7 +32,7 @@ router.post('/usuarios',(req,res)=>{
     console.log('Insert usuarios')
     let emp=req.body;
     console.log(emp);
-    mysqlConnection.query('insert into materias (userName, pass, roleId) values (?,?,?)',
+    mysqlConnection.query('insert into usuarios (userName, pass, roleId) values (?,?,?)',
     [emp.userName,emp.pass,emp.roleId],(err,result)=>{
         if(!err){
             console.log(result);
