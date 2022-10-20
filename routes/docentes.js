@@ -6,7 +6,7 @@ const mysqlConnection = require('../configurations/db-conf');
 /*Get-Docentes*/
 router.get('/docentes',(req,res)=>{
     console.log('get lista docentes')
-    mysqlConnection.query('Select id, dpi, nombre, fecha_nacimiento, fecha_ingreso, direccion, telefono, correo from docentes',(err,rows,fields)=>{
+    mysqlConnection.query('Select id, dpi, nombre, fecha_nacimiento, fecha_ingreso, direccion, telefono, correo, status from docentes',(err,rows,fields)=>{
         if(!err){
             res.send(rows);
         }else{
@@ -18,7 +18,7 @@ router.get('/docentes',(req,res)=>{
 /*Get-id-Persona*/
 router.get('/docentes/:id',(req,res)=>{
     console.log('get docente')
-    mysqlConnection.query('Select id, dpi, nombre, fecha_nacimiento, fecha_ingreso, direccion, telefono, correo from docentes where id = ?',[req.params.id],(err,rows,fields)=>{
+    mysqlConnection.query('Select id, dpi, nombre, fecha_nacimiento, fecha_ingreso, direccion, telefono, correo, status from docentes where id = ?',[req.params.id],(err,rows,fields)=>{
         if(!err){
             res.send(rows);
         }else{
@@ -32,8 +32,8 @@ router.post('/docentes',(req,res)=>{
     console.log('Insert docentes')
     let emp=req.body;
     console.log(emp);
-    mysqlConnection.query('insert into docentes (dpi, nombre, fecha_nacimiento, fecha_ingreso, direccion, telefono, correo) values (?,?,?,?,?,?,?)',
-    [emp.dpi,emp.nombre,emp.fecha_nacimiento,emp.fecha_ingreso,emp.direccion,emp.telefono,emp.correo],(err,result)=>{
+    mysqlConnection.query('insert into docentes (dpi, nombre, fecha_nacimiento, fecha_ingreso, direccion, telefono, correo, status) values (?,?,?,?,?,?,?,?)',
+    [emp.dpi,emp.nombre,emp.fecha_nacimiento,emp.fecha_ingreso,emp.direccion,emp.telefono,emp.correo, emp.status],(err,result)=>{
         if(!err){
             console.log(result);
             res.status(201).send('created Successfully');
@@ -48,8 +48,8 @@ router.post('/docentes',(req,res)=>{
 router.put('/docentes/:id',(req,res)=>{
     console.log('Update docentes')
     let emp=req.body;
-    mysqlConnection.query('update docentes set dpi=?, nombre=?, fecha_nacimiento=?, fecha_ingreso=?, direccion=?, telefono=?, correo=? where id=?',
-    [emp.dpi,emp.nombre,emp.fecha_nacimiento,emp.fecha_ingreso,emp.direccion,emp.telefono,emp.correo,req.params.id],(err,result)=>{
+    mysqlConnection.query('update docentes set dpi=?, nombre=?, fecha_nacimiento=?, fecha_ingreso=?, direccion=?, telefono=?, correo=?, status=? where id=?',
+    [emp.dpi,emp.nombre,emp.fecha_nacimiento,emp.fecha_ingreso,emp.direccion,emp.telefono,emp.correo,emp.status,req.params.id],(err,result)=>{
         if(!err){
             console.log(result);
             res.status(202).send('Updated Successfully');

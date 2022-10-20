@@ -6,7 +6,7 @@ const mysqlConnection = require('../configurations/db-conf');
 /*Get-Alumnos*/
 router.get('/alumnos',(req,res)=>{
     console.log('get lista alumnos')
-    mysqlConnection.query('Select id, nombre, fecha_nacimiento, fecha_ingreso, direccion, telefono from alumnos',(err,rows,fields)=>{
+    mysqlConnection.query('Select id, nombre, fecha_nacimiento, fecha_ingreso, direccion, telefono, status from alumnos',(err,rows,fields)=>{
         if(!err){
             res.send(rows);
         }else{
@@ -18,7 +18,7 @@ router.get('/alumnos',(req,res)=>{
 /*Get-id-Persona*/
 router.get('/alumnos/:id',(req,res)=>{
     console.log('get alumnos')
-    mysqlConnection.query('Select id, nombre, fecha_nacimiento, fecha_ingreso, direccion, telefono from alumnos where id = ?',[req.params.id],(err,rows,fields)=>{
+    mysqlConnection.query('Select id, nombre, fecha_nacimiento, fecha_ingreso, direccion, telefono, status from alumnos where id = ?',[req.params.id],(err,rows,fields)=>{
         if(!err){
             res.send(rows);
         }else{
@@ -32,8 +32,8 @@ router.post('/alumnos',(req,res)=>{
     console.log('Insert alumnos')
     let emp=req.body;
     console.log(emp);
-    mysqlConnection.query('insert into alumnos (nombre, fecha_nacimiento, fecha_ingreso, direccion, telefono) values (?,?,?,?,?)',
-    [emp.nombre,emp.fecha_nacimiento,emp.fecha_ingreso,emp.direccion,emp.telefono],(err,result)=>{
+    mysqlConnection.query('insert into alumnos (nombre, fecha_nacimiento, fecha_ingreso, direccion, telefono, status) values (?,?,?,?,?,?)',
+    [emp.nombre,emp.fecha_nacimiento,emp.fecha_ingreso,emp.direccion,emp.telefono,emp.status],(err,result)=>{
         if(!err){
             console.log(result);
             res.status(201).send('created Successfully');
@@ -48,8 +48,8 @@ router.post('/alumnos',(req,res)=>{
 router.put('/alumnos/:id',(req,res)=>{
     console.log('Update alumnos')
     let emp=req.body;
-    mysqlConnection.query('update alumnos set nombre=?, fecha_nacimiento=?, fecha_ingreso=?, direccion=?, telefono=? where id=?',
-    [emp.nombre,emp.fecha_nacimiento,emp.fecha_ingreso,emp.direccion,emp.telefono,req.params.id],(err,result)=>{
+    mysqlConnection.query('update alumnos set nombre=?, fecha_nacimiento=?, fecha_ingreso=?, direccion=?, telefono=?, status=? where id=?',
+    [emp.nombre,emp.fecha_nacimiento,emp.fecha_ingreso,emp.direccion,emp.telefono,emp.status,req.params.id],(err,result)=>{
         if(!err){
             console.log(result);
             res.status(202).send('Updated Successfully');
