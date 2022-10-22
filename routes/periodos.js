@@ -27,6 +27,20 @@ router.get('/periodos/:id',(req,res)=>{
         }
     })
 });
+
+/*Get-id-periodos*/
+router.get('/periodos/ciclo/:ciclo',(req,res)=>{
+    console.log('get periodos ciclo')
+    mysqlConnection.query('Select id, descripcion, ciclo, status, fecha_inicio, fecha_fin from periodos where ciclo = ?;',[req.params.ciclo],(err,rows,fields)=>{
+        if(!err){
+            res.send(rows);
+        }else{
+            console.log(err);
+            res.send('Error');
+        }
+    })
+});
+
 /*Insert-Periodos*/
 router.post('/periodos',(req,res)=>{
     console.log('Insert periodos')
